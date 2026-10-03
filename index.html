@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Move Your Way — Find your kind of fun</title>
+  <meta name="description" content="Move Your Way makes choosing an activity feel easy, welcoming, and completely your own." />
+  <style>
+    :root { --ink:#20252c; --muted:#66707c; --paper:#fbfaf7; --lime:#d9f56a; --orange:#ff815e; --lav:#ded8ff; --aqua:#b8f1e6; --pink:#ffc2e2; --sky:#b9dcff; --yellow:#ffe39a; --line:rgba(32,37,44,.13); --radius:24px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height:1.5; }
+    h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:ui-rounded, "Arial Rounded MT Bold", Inter, sans-serif; letter-spacing:-.04em; }
+    button,select { font:inherit; }
+    .topbar { background:var(--ink); color:white; display:flex; justify-content:center; padding:9px 20px; font-size:.8rem; letter-spacing:.02em; }
+    .topbar span { color:var(--lime); margin-left:5px; }
+    nav { height:76px; display:flex; align-items:center; justify-content:space-between; max-width:1180px; margin:auto; padding:0 28px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.05rem; }
+    .brand-mark { width:34px; height:34px; background:linear-gradient(135deg,var(--orange),var(--pink)); border-radius:11px 19px 11px 19px; transform:rotate(-16deg); display:grid; place-items:center; color:var(--ink); font-weight:700; }
+    .nav-links { display:flex; gap:26px; align-items:center; font-size:.9rem; }
+    .nav-links a { color:var(--ink); text-decoration:none; }
+    .nav-links a:hover { opacity:.6; }
+    .nav-cta,.dark-btn { background:var(--ink); color:white; border:0; border-radius:999px; padding:12px 19px; cursor:pointer; transition:.2s; }
+    .nav-cta:hover,.dark-btn:hover { transform:translateY(-2px); background:#383e47; }
+    .hero { max-width:1180px; margin:auto; padding:74px 28px 90px; display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; margin-bottom:20px; }
+    .eyebrow:before { content:''; width:10px; height:10px; background:var(--orange); border-radius:50%; }
+    .hero h1 { font-size:clamp(3.6rem,7vw,6.5rem); line-height:.92; max-width:650px; }
+    .hero h1 em { color:var(--orange); font-style:normal; }
+    .hero-copy { margin:25px 0 29px; color:var(--muted); max-width:450px; font-size:1.05rem; }
+    .hero-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .outline-btn { border:1px solid var(--ink); background:transparent; border-radius:999px; padding:12px 19px; cursor:pointer; }
+    .outline-btn:hover { background:var(--ink); color:#fff; }
+    .hero-art { min-height:470px; position:relative; }
+    .blob { position:absolute; inset:33px 25px 0 34px; background:var(--lav); border-radius:48% 52% 44% 56% / 49% 42% 58% 51%; transform:rotate(5deg); }
+    .blob:after { content:''; position:absolute; width:130px; height:80px; background:var(--aqua); border-radius:60% 40% 50% 50%; right:-16px; top:53px; transform:rotate(-25deg); }
+    .sticker { position:absolute; z-index:2; border:2px solid var(--ink); padding:10px 14px; background:var(--lime); border-radius:13px; font-size:.83rem; font-weight:700; box-shadow:4px 4px 0 var(--ink); }
+    .sticker.one { top:34px; left:5px; transform:rotate(-8deg); } .sticker.two { bottom:42px; right:2px; transform:rotate(8deg); background:var(--orange); }
+    .person { position:absolute; z-index:1; left:24%; top:82px; width:240px; height:320px; }
+    .person .head { width:75px; height:75px; background:#f0b17c; border-radius:48% 48% 45% 45%; position:absolute; left:77px; top:3px; border:3px solid var(--ink); }
+    .person .hair { position:absolute; width:88px; height:47px; background:#392f41; border-radius:60% 60% 30% 20%; left:69px; top:-9px; transform:rotate(-9deg); z-index:2; }
+    .person .body { position:absolute; width:125px; height:155px; background:var(--orange); border:3px solid var(--ink); border-radius:50px 50px 26px 26px; left:54px; top:75px; transform:rotate(-10deg); }
+    .person .arm { position:absolute; width:30px; height:136px; background:#f0b17c; border:3px solid var(--ink); border-radius:30px; top:79px; left:160px; transform:rotate(-47deg); }
+    .person .leg { position:absolute; background:#5079d8; border:3px solid var(--ink); height:163px; width:41px; border-radius:26px; top:212px; left:70px; transform:rotate(13deg); }
+    .person .leg.two { left:129px; transform:rotate(-16deg); }
+    .person .shoe { position:absolute; background:var(--lime); border:3px solid var(--ink); width:70px; height:29px; border-radius:20px 24px 10px 10px; top:347px; left:43px; transform:rotate(10deg); z-index:2; }
+    .person .shoe.two { left:125px; transform:rotate(-12deg); }
+    .sun { position:absolute; width:82px; height:82px; border-radius:50%; background:var(--orange); right:67px; top:30px; }
+    .hero-note { position:absolute; bottom:4px; left:33px; z-index:2; max-width:155px; font-size:.76rem; font-weight:700; transform:rotate(-4deg); }
+    .marquee { background:var(--lime); border-block:2px solid var(--ink); padding:14px 0; overflow:hidden; white-space:nowrap; }
+    .marquee-track { display:inline-block; animation:scroll 24s linear infinite; font-weight:700; font-size:1.1rem; }
+    .marquee-track span { margin:0 24px; } .marquee-track span::after { content:'✳'; margin-left:48px; }
+    @keyframes scroll { to { transform:translateX(-50%); } }
+    section { max-width:1180px; margin:auto; padding:100px 28px; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:25px; margin-bottom:30px; }
+    .section-head h2 { font-size:clamp(2.4rem,5vw,4rem); line-height:.98; max-width:550px; }
+    .section-head p { color:var(--muted); max-width:320px; }
+    #matcher { max-width:none; background:linear-gradient(135deg,#e8e3ff 0%,#d8f7ed 48%,#fff0c7 100%); padding-inline:max(28px, calc((100% - 1180px)/2)); }
+    #matcher > .matcher { max-width:1180px; margin:auto; }
+    #activities { max-width:none; background:linear-gradient(180deg,#fffaf0 0%,#fbfaf7 100%); padding-inline:max(28px, calc((100% - 1180px)/2)); }
+    .matcher { background:var(--ink); color:white; border-radius:32px; padding:38px; display:grid; grid-template-columns:.7fr 1.3fr; gap:35px; }
+    .matcher h2 { font-size:clamp(2rem,4vw,3.3rem); line-height:1; }
+    .matcher .small { color:#bcc3ca; margin-top:14px; max-width:310px; font-size:.95rem; }
+    .quiz-panel { background:#fff; color:var(--ink); border-radius:22px; padding:26px; }
+    .question { font-size:1.25rem; font-weight:600; margin-bottom:17px; }
+    .choices { display:flex; flex-wrap:wrap; gap:9px; margin-bottom:20px; }
+    .choice { border:1px solid var(--line); border-radius:999px; background:#fff; cursor:pointer; padding:9px 14px; font-size:.9rem; transition:.15s; }
+    .choice:hover,.choice.selected { background:var(--aqua); border-color:var(--ink); }
+    .guide-panel { background:#fff; color:var(--ink); border-radius:22px; padding:26px; }
+    .guide-panel .question { max-width:450px; }
+    .guide-options { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+    .guide-option { text-align:left; border:1px solid var(--line); border-radius:16px; background:#fff; cursor:pointer; padding:13px 14px; transition:.15s; }
+    .guide-option strong { display:block; font-size:.95rem; } .guide-option small { color:var(--muted); display:block; margin-top:3px; font-size:.78rem; }
+    .guide-option:hover,.guide-option.selected { background:var(--aqua); border-color:var(--ink); transform:translateY(-2px); }
+    .guide-summary { color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); margin-top:18px; padding-top:15px; }
+    .quiz-progress { display:flex; align-items:center; gap:12px; margin:18px 0 13px; }
+    .quiz-progress-bar { height:8px; flex:1; background:#e8e5df; border-radius:20px; overflow:hidden; }
+    .quiz-progress-fill { height:100%; width:20%; background:linear-gradient(90deg,var(--orange),var(--pink)); border-radius:20px; transition:width .25s; }
+    .quiz-count { color:var(--muted); font-size:.78rem; white-space:nowrap; }
+    .quiz-options { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }
+    .quiz-option { text-align:left; border:1px solid var(--line); border-radius:14px; background:#fff; cursor:pointer; padding:11px 12px; transition:.15s; }
+    .quiz-option:hover,.quiz-option.selected { background:var(--pink); border-color:var(--ink); transform:translateY(-2px); }
+    .quiz-result { display:none; margin-top:16px; background:var(--yellow); border:1px solid var(--ink); border-radius:15px; padding:14px; }
+    .quiz-result.show { display:block; } .quiz-result strong { display:block; font-size:1.15rem; }
+    .browse-divider { display:flex; align-items:center; gap:10px; margin:20px 0 13px; color:var(--muted); font-size:.77rem; text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+    .browse-divider:before,.browse-divider:after { content:''; height:1px; flex:1; background:var(--line); }
+    .browse-buttons { display:flex; flex-wrap:wrap; gap:7px; }
+    .browse-buttons .guide-option { padding:8px 11px; border-radius:999px; text-align:center; }
+    .browse-buttons .guide-option small { display:none; }
+    .progress { display:flex; justify-content:space-between; align-items:center; gap:14px; border-top:1px solid var(--line); padding-top:18px; }
+    .step { color:var(--muted); font-size:.8rem; } .result { display:none; background:var(--aqua); border:1px solid var(--ink); border-radius:16px; padding:15px; margin-top:17px; }
+    .result.show { display:block; } .result strong { font-size:1.2rem; display:block; }
+    .filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:27px; }
+    .filter { background:transparent; border:1px solid var(--line); border-radius:999px; cursor:pointer; padding:9px 15px; }
+    .filter.active,.filter:hover { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .card-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; }
+    .activity { min-height:240px; padding:18px; border-radius:var(--radius); display:flex; flex-direction:column; justify-content:space-between; border:1px solid var(--line); transition:.2s; overflow:hidden; position:relative; }
+    .activity:hover { transform:translateY(-5px) rotate(-1deg); box-shadow:5px 6px 0 var(--ink); }
+    .activity:nth-child(6n+1) { background:var(--lav); } .activity:nth-child(6n+2) { background:var(--aqua); } .activity:nth-child(6n+3) { background:var(--yellow); } .activity:nth-child(6n+4) { background:#ffd1c7; } .activity:nth-child(6n+5) { background:var(--sky); } .activity:nth-child(6n) { background:var(--pink); }
+    .activity-icon { font-size:3.1rem; line-height:1; filter:saturate(.9); }
+    .activity h3 { font-size:1.2rem; margin-top:22px; } .activity p { color:#4f5863; font-size:.86rem; margin-top:4px; }
+    .activity-shoe { display:inline-flex; align-items:center; gap:5px; margin-top:11px; color:#303740; font-size:.72rem; font-weight:700; }
+    .tag { align-self:flex-start; background:rgba(255,255,255,.65); padding:5px 9px; font-size:.7rem; border-radius:20px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .shoe-section { background:#f0eee9; max-width:none; padding-inline:max(28px, calc((100% - 1180px)/2)); }
+    .shoe-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; }
+    .shoe-card { background:#fff; border:1px solid var(--line); border-radius:25px; padding:24px; min-height:255px; display:flex; flex-direction:column; }
+    .shoe-top { display:flex; justify-content:space-between; align-items:start; } .shoe-emoji { font-size:3.2rem; }
+    .price { font-weight:700; } .shoe-card h3 { margin-top:17px; font-size:1.45rem; } .shoe-card p { color:var(--muted); font-size:.9rem; margin-top:8px; }
+    .shoe-card .outline-btn { align-self:flex-start; margin-top:auto; padding:8px 13px; font-size:.82rem; }
+    .shoe-note { color:var(--muted); font-size:.78rem; margin-top:10px; }
+    footer { max-width:1180px; padding:60px 28px 42px; margin:auto; display:flex; justify-content:space-between; gap:20px; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem; }
+    footer strong { color:var(--ink); }
+    @media (max-width:800px) { .nav-links a { display:none; } .hero { grid-template-columns:1fr; padding-top:50px; } .hero-art { min-height:390px; } .matcher { grid-template-columns:1fr; } .card-grid { grid-template-columns:repeat(2,1fr); } .shoe-grid { grid-template-columns:1fr; } }
+    @media (max-width:490px) { nav { padding:0 18px; } .nav-cta { padding:9px 13px; font-size:.8rem; } .hero,section { padding-inline:18px; } .hero h1 { font-size:3.45rem; } .hero-art { transform:scale(.86); transform-origin:top left; margin-bottom:-55px; } .matcher { padding:23px; } .guide-options,.quiz-options { grid-template-columns:1fr; } .card-grid { grid-template-columns:1fr 1fr; gap:9px; } .activity { min-height:205px; padding:13px; } .activity-icon { font-size:2.4rem; } .activity h3 { font-size:1rem; } .activity p { font-size:.76rem; } footer { padding-inline:18px; flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">No tryouts. No pressure. Just find a move that feels like you. <span>✦</span></div>
+  <nav>
+    <a class="brand" href="#top" aria-label="Move Your Way home"><span class="brand-mark">↗</span> move your way</a>
+    <div class="nav-links"><a href="#activities">Pick a move</a><a href="#shoes">Find your shoes</a></div>
+    <a class="nav-cta" href="#matcher">Take the 30-sec quiz</a>
+  </nav>
+  <main id="top">
+    <section class="hero">
+      <div><div class="eyebrow">Movement, made personal</div><h1>Your move.<br /><em>Your rules.</em></h1><p class="hero-copy">Sports don’t have to be loud, competitive, or intimidating. Find a way to move that fits your mood — from the court to the couch and everywhere in between.</p><div class="hero-actions"><a class="dark-btn" href="#activities">Explore activities ↓</a><a class="outline-btn" href="#matcher">I don’t know yet</a></div></div>
+      <div class="hero-art" aria-label="Illustration of a person enjoying movement"><div class="blob"></div><div class="sun"></div><div class="sticker one">GOOD VIBES<br />ONLY ✳</div><div class="sticker two">MOVE<br />YOUR WAY</div><div class="person"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="arm"></div><div class="leg"></div><div class="leg two"></div><div class="shoe"></div><div class="shoe two"></div></div><div class="hero-note">A little movement can make a big difference. Start wherever you are.</div></div>
+    </section>
+    <div class="marquee"><div class="marquee-track"><span>walk it out</span><span>dance break</span><span>shoot some hoops</span><span>play outside</span><span>make it social</span><span>walk it out</span><span>dance break</span><span>shoot some hoops</span><span>play outside</span><span>make it social</span></div></div>
+    <section id="matcher"><div class="matcher"><div><div class="eyebrow" style="color:var(--lime)">A gentler way in</div><h2>Find a move that fits today.</h2><p class="small">Five quick questions, no grades, and no “athletic” answer. Your result is a starting point—not a rule.</p></div><div class="guide-panel"><div id="questionText" class="question">What kind of mood are you in?</div><div class="quiz-progress"><div class="quiz-progress-bar"><div id="quizProgressFill" class="quiz-progress-fill"></div></div><span id="quizCount" class="quiz-count">1 of 5</span></div><div id="quizOptions" class="quiz-options"></div><div class="progress"><span id="quizHint" class="step">Choose what feels closest</span><button id="quizNext" class="dark-btn">Next →</button></div><div id="quizResult" class="quiz-result"></div><div class="browse-divider">or browse by today</div><div class="browse-buttons"><button class="guide-option" data-guide="low"><strong>Low-pressure</strong><small>Gentle, flexible, no performance</small></button><button class="guide-option" data-guide="short"><strong>10 minutes</strong><small>Small starts that fit a busy day</small></button><button class="guide-option" data-guide="social"><strong>With company</strong><small>Friends, teams, or shared energy</small></button><button class="guide-option" data-guide="outside"><strong>Outside</strong><small>Fresh air and a change of scene</small></button><button class="guide-option" data-guide="stuff"><strong>Use what I have</strong><small>Little or no special equipment</small></button><button class="guide-option" data-guide="energy"><strong>More energy</strong><small>Playful, active, and a little sweaty</small></button></div><div id="guideSummary" class="guide-summary">Pick any doorway—or scroll straight to everything. Every move counts.</div></div></div></section>
+    <section id="activities"><div class="section-head"><div><div class="eyebrow">The activity buffet</div><h2>Pick your own move.</h2></div><p>There’s no right answer here. Browse by vibe and choose whatever makes you curious.</p></div><div class="filter-row" role="group" aria-label="Filter activities"><button class="filter active" data-filter="all">All the things</button><button class="filter" data-filter="sport">Sports</button><button class="filter" data-filter="solo">Solo time</button><button class="filter" data-filter="social">With friends</button><button class="filter" data-filter="chill">Low-key</button></div><p id="activitySummary" class="step" style="margin:-12px 0 18px">Showing every option · nothing to prove</p><div id="activityGrid" class="card-grid"></div></section>
+    <section id="shoes" class="shoe-section"><div class="section-head"><div><div class="eyebrow">Step into it</div><h2>Shoes that get the assignment.</h2></div><p>The right pair can make trying something new feel a little more comfortable. Here are easy starting points matched to the way you move.</p></div><div class="shoe-grid"><article class="shoe-card"><div class="shoe-top"><span class="shoe-emoji">👟</span><span class="price">$ —  $$</span></div><h3>Everyday sneakers</h3><p>Flexible and comfortable for walks, movies, friends, errands, mini golf, and casual exploring.</p><span class="shoe-note">Best for: walking, social plans, low-key movement</span><button class="outline-btn" data-toast="Saved: Everyday sneakers">Save this pick ♡</button></article><article class="shoe-card"><div class="shoe-top"><span class="shoe-emoji">🏃</span><span class="price">$$ — $$$</span></div><h3>Running shoes</h3><p>Cushioning and a secure fit for running, track, jump rope, tag, and longer walks.</p><span class="shoe-note">Best for: forward-moving activities</span><button class="outline-btn" data-toast="Saved: Running shoes">Save this pick ♡</button></article><article class="shoe-card"><div class="shoe-top"><span class="shoe-emoji">🏀</span><span class="price">$$ — $$$</span></div><h3>Court shoes</h3><p>Indoor grip and side-to-side support for basketball, volleyball, badminton, and pickleball.</p><span class="shoe-note">Best for: court sports with quick pivots</span><button class="outline-btn" data-toast="Saved: Court shoes">Save this pick ♡</button></article><article class="shoe-card"><div class="shoe-top"><span class="shoe-emoji">⚽</span><span class="price">$$ — $$$</span></div><h3>Cleats & turf shoes</h3><p>Outsole traction for soccer and softball fields. Match the outsole to grass, turf, or indoor play.</p><span class="shoe-note">Best for: field sports</span><button class="outline-btn" data-toast="Saved: Cleats & turf shoes">Save this pick ♡</button></article><article class="shoe-card"><div class="shoe-top"><span class="shoe-emoji">🥾</span><span class="price">$$ — $$$</span></div><h3>Trail & hiking shoes</h3><p>Grippy soles and more coverage for hikes, uneven paths, and outdoor adventures.</p><span class="shoe-note">Best for: trails and changing ground</span><button class="outline-btn" data-toast="Saved: Trail & hiking shoes">Save this pick ♡</button></article><article class="shoe-card"><div class="shoe-top"><span class="shoe-emoji">🛼</span><span class="price">$$ — $$$</span></div><h3>Activity-specific gear</h3><p>Climbing shoes, roller skates, bowling shoes, swim shoes, and dance sneakers are built for their own surfaces.</p><span class="shoe-note">Best for: climbing, skating, bowling, swimming, dance</span><button class="outline-btn" data-toast="Saved: Activity-specific gear">Save this pick ♡</button></article></div></section>
+  </main>
+  <footer><div><strong>move your way ↗</strong><br />There is no “not sporty enough.”</div><div>Made for first tries, tiny wins,<br />and finding your people.</div></footer>
+  <script>
+    const activities = [
+      ['Basketball','Shoot around, learn a trick, or just vibe with a ball.','🏀','sport','Court shoes'],['Soccer','A little fresh air and a game that keeps you moving.','⚽','sport','Soccer cleats'],['Volleyball','Team energy, beach days, and zero need to be perfect.','🏐','sport','Court shoes'],['Tennis','A solo wall rally or a friendly match — your call.','🎾','sport','Tennis shoes'],['Swimming','Float, splash, or make your own peaceful laps.','🏊','solo','Barefoot / swim shoes'],['Track & field','Run, jump, throw, or cheer. Pick one lane.','🏃','sport','Running shoes'],['Softball','Grab a glove and make it a sunny afternoon.','🥎','social','Turf / cleats'],['Golf','A slow, scenic game with plenty of room to breathe.','⛳','chill','Golf shoes or trainers'],['Dance party','Put on three songs and call it a workout.','💃','solo','Dance sneakers'],['K-pop choreo','Learn a chorus and perform it for your mirror.','🎶','solo','Dance sneakers'],['Yoga','Stretch, reset, and listen to what your body needs.','🧘','chill','Barefoot / yoga socks'],['Pilates','Small movements, big “I feel better” energy.','🌱','solo','Barefoot / grip socks'],['Pickleball','Friendly rallies and a very welcoming learning curve.','🏓','social','Court shoes'],['Badminton','Quick, playful, and easier to start than it looks.','🏸','sport','Indoor court shoes'],['Roller skating','Cruise, wobble, and find your balance with music on.','🛼','social','Roller skates'],['Rock climbing','Solve a wall like a puzzle, one hold at a time.','🧗','sport','Climbing shoes'],['Frisbee','A park, a disc, and friends who don’t keep score.','🥏','social','Trail / everyday sneakers'],['Long walk','Explore a new neighborhood at your own pace.','🚶','solo','Walking shoes'],['Bike ride','A tiny adventure with the wind on your face.','🚲','solo','Cycling shoes or trainers'],['Hike','Find a trail, pack a snack, take the scenic route.','🥾','chill','Hiking shoes'],['Bowling','Big shoes, silly celebrations, no athletic résumé needed.','🎳','social','Bowling shoes'],['Mini golf','A little competition, a lot of laughs.','⛳','social','Everyday sneakers'],['Go to a movie','An outing counts, especially with the walk there and back.','🍿','chill','Everyday sneakers'],['See your friends','Walk to the café, window-shop, or simply catch up.','🫶','social','Everyday sneakers'],['Thrift store browse','Turn errands into a low-key treasure hunt.','🧢','chill','Everyday sneakers'],['Play at the arcade','Dance games, racing games, and button-mashing joy.','🕹️','social','Everyday sneakers'],['Take photos','Find interesting colors, shadows, and tiny details outside.','📸','solo','Walking shoes'],['Gardening','Get your hands dirty and grow something small.','🌻','chill','Garden clogs / trainers'],['Walk the dog','Quality time for both of you.','🐕','social','Walking shoes'],['Jump rope','Try one minute, learn a trick, laugh at the tangles.','➰','solo','Training shoes'],['Skateboard','Cruise, practice, and make the sidewalk your canvas.','🛹','sport','Skate shoes'],['Martial arts','Build confidence, focus, and a strong stance.','🥋','sport','Barefoot / martial arts shoes'],['Play tag','The original “just run around” activity.','🏷️','social','Running shoes'],['Window shopping','A little movement with absolutely no performance pressure.','🛍️','chill','Everyday sneakers']
+    ];
+    const firstSteps = {
+      'Basketball':'Stand close to the hoop and take 5 easy shots.', 'Soccer':'Tap a ball between your feet for 30 seconds.', 'Volleyball':'Toss a balloon up and keep it off the floor.', 'Tennis':'Bounce a tennis ball on your racket 5 times.', 'Swimming':'Put your feet in and walk one pool length.', 'Track & field':'Walk one lap and notice how you feel.', 'Softball':'Toss a ball gently with a friend.', 'Golf':'Try one putt from a few feet away.', 'Dance party':'Play one song and move however you want.', 'K-pop choreo':'Learn just the first 8 counts.', 'Yoga':'Take one slow stretch and one deep breath.', 'Pilates':'Try 5 slow bridges on the floor.', 'Pickleball':'Paddle the ball back and forth once.', 'Badminton':'See how many gentle taps you can make.', 'Roller skating':'Put on skates and practice standing still.', 'Rock climbing':'Choose the easiest-looking hold and reach for it.', 'Frisbee':'Make one short toss with a friend.', 'Long walk':'Walk to the end of your block and back.', 'Bike ride':'Take a 5-minute ride somewhere familiar.', 'Hike':'Find a short trail and walk for 10 minutes.', 'Bowling':'Roll one ball and celebrate the pin count.', 'Mini golf':'Take the first hole at your own pace.', 'Go to a movie':'Walk around the block before the previews.', 'See your friends':'Text someone: “Want to take a little walk?”', 'Thrift store browse':'Visit one aisle and find one interesting color.', 'Play at the arcade':'Choose one game with no score goal.', 'Take photos':'Photograph 3 things that match one color.', 'Gardening':'Water one plant or plant one seed.', 'Walk the dog':'Take one extra loop around the block.', 'Jump rope':'Try 10 gentle jumps—or just swing the rope.', 'Skateboard':'Stand on the board on grass first.', 'Martial arts':'Practice one balanced stance for 10 seconds.', 'Play tag':'Start with a slow-motion round.', 'Window shopping':'Walk to one window display and back.'
+    };
+    const guideGroups = {
+      low: ['Yoga','Pilates','Long walk','Go to a movie','See your friends','Thrift store browse','Take photos','Gardening','Window shopping','Mini golf'],
+      short: ['Dance party','K-pop choreo','Yoga','Jump rope','Long walk','Take photos','Walk the dog','Window shopping','Play at the arcade'],
+      social: activities.filter(a=>a[3]==='social').map(a=>a[0]),
+      outside: ['Soccer','Volleyball','Golf','Frisbee','Long walk','Bike ride','Hike','Mini golf','Take photos','Gardening','Walk the dog','Play tag','Window shopping'],
+      stuff: ['Long walk','Dance party','K-pop choreo','Yoga','Pilates','Go to a movie','See your friends','Take photos','Gardening','Walk the dog','Window shopping'],
+      energy: ['Basketball','Soccer','Volleyball','Tennis','Track & field','Pickleball','Badminton','Roller skating','Rock climbing','Bike ride','Jump rope','Skateboard','Martial arts','Play tag']
+    };
+    const guideLabels = {low:'low-pressure options',short:'10-minute options',social:'social options',outside:'outdoor options',stuff:'no-special-gear options',energy:'higher-energy options'};
+    const grid = document.getElementById('activityGrid'), summary = document.getElementById('activitySummary'), guideSummary = document.getElementById('guideSummary');
+    let currentFilter='all', currentGuide='all';
+    function render() { const visible=activities.filter(a => (currentFilter==='all'||a[3]===currentFilter) && (currentGuide==='all'||guideGroups[currentGuide].includes(a[0]))); grid.innerHTML = visible.map(a => `<article class="activity"><span class="tag">${a[3]}</span><div class="activity-icon">${a[2]}</div><div><h3>${a[0]}</h3><p>${a[1]}</p><span class="activity-shoe">👟 Best with: ${a[4]}</span><span class="activity-shoe">↳ First step: ${firstSteps[a[0]]}</span></div></article>`).join(''); summary.textContent = `Showing ${visible.length} ${visible.length===1?'option':'options'}${currentGuide!=='all'?' · '+guideLabels[currentGuide]:''}${currentFilter!=='all'?' · '+currentFilter:''} · all are valid`; }
+    render();
+    const quizQuestions = [
+      { q:'What sounds nicest today?', options:[['A little solo time','solo'],['A shared plan','social'],['A calm reset','chill'],['A playful challenge','sport']] },
+      { q:'How much time do you have?', options:[['About 10 minutes','short'],['A little while','medium'],['I can make an afternoon of it','long'],['Not sure yet','all']] },
+      { q:'Where would you rather be?', options:[['Inside','inside'],['Outside','outside'],['Near home','stuff'],['Anywhere feels fine','all']] },
+      { q:'What energy level fits?', options:[['Very gentle','chill'],['A steady lift','solo'],['Let’s get moving','sport'],['Bring on the people','social']] },
+      { q:'What kind of fun are you curious about?', options:[['Learning a skill','sport'],['Making a memory','social'],['A tiny adventure','outside'],['Feeling more grounded','chill']] }
+    ];
+    let quizIndex=0, quizAnswers=[];
+    const questionText=document.getElementById('questionText'), quizOptions=document.getElementById('quizOptions'), quizCount=document.getElementById('quizCount'), quizFill=document.getElementById('quizProgressFill'), quizHint=document.getElementById('quizHint'), quizNext=document.getElementById('quizNext'), quizResult=document.getElementById('quizResult');
+    function loadQuizQuestion(){ const question=quizQuestions[quizIndex]; questionText.textContent=question.q; quizCount.textContent=`${quizIndex+1} of 5`; quizFill.style.width=`${(quizIndex+1)*20}%`; quizOptions.innerHTML=question.options.map((option,i)=>`<button class="quiz-option" data-i="${i}">${option[0]}</button>`).join(''); quizHint.textContent='Choose what feels closest'; quizNext.textContent=quizIndex===4?'Show my idea →':'Next →'; document.querySelectorAll('.quiz-option').forEach(option=>option.addEventListener('click',()=>{document.querySelectorAll('.quiz-option').forEach(other=>other.classList.remove('selected')); option.classList.add('selected'); quizAnswers[quizIndex]=question.options[option.dataset.i][1]; quizHint.textContent='Nice—there is no wrong answer';})); }
+    function showQuizResult(){ const counts={sport:0,social:0,solo:0,chill:0}; quizAnswers.forEach(answer=>{if(counts[answer]!==undefined) counts[answer]++;}); let best=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]; let picks=activities.filter(a=>a[3]===best); if(quizAnswers.includes('short')) picks=picks.filter(a=>guideGroups.short.includes(a[0]))||picks; if(quizAnswers.includes('outside')) picks=picks.filter(a=>guideGroups.outside.includes(a[0]))||picks; if(!picks.length) picks=activities.filter(a=>a[3]===best); const pick=picks[Math.floor(Math.random()*picks.length)]; quizResult.innerHTML=`<strong>Your starting point: ${pick[0]} ${pick[2]}</strong>${pick[1]}<br><b>👟 Best with: ${pick[4]}</b><br><span style="display:block;margin-top:6px;font-size:.82rem">First step: ${firstSteps[pick[0]]}</span><button class="outline-btn" style="display:block;margin-top:11px;padding:7px 12px;font-size:.8rem" id="seeQuizMatch">See the activity gallery</button>`; quizResult.classList.add('show'); document.getElementById('seeQuizMatch').addEventListener('click',()=>document.getElementById('activities').scrollIntoView({behavior:'smooth'})); quizNext.textContent='Try again'; quizHint.textContent='Keep exploring—this is just one idea'; quizNext.onclick=()=>{quizIndex=0;quizAnswers=[];quizResult.classList.remove('show');loadQuizQuestion();quizNext.onclick=advanceQuiz;}; }
+    function advanceQuiz(){ if(quizAnswers[quizIndex]===undefined){ quizHint.textContent='Pick one to keep going'; quizNext.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:220}); return; } if(quizIndex<4){quizIndex++;loadQuizQuestion();}else showQuizResult(); }
+    quizNext.onclick=advanceQuiz; loadQuizQuestion();
+    document.querySelectorAll('.filter').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentFilter=btn.dataset.filter; if(currentFilter==='all'){ currentGuide='all'; document.querySelectorAll('.guide-option').forEach(b=>b.classList.remove('selected')); guideSummary.textContent='Pick any doorway—or scroll straight to everything. Every move counts.'; } render(); }));
+    document.querySelectorAll('.guide-option').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('.guide-option').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); currentGuide=btn.dataset.guide; guideSummary.textContent=`Showing ${guideLabels[currentGuide]}. You can change the filter or return to all the things whenever you want.`; render(); document.getElementById('activities').scrollIntoView({behavior:'smooth',block:'start'}); }));
+    document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',()=>{const original=b.textContent;b.textContent='Saved ✓';setTimeout(()=>b.textContent=original,1400);}));
+  </script>
+</body>
+</html>
